@@ -17,7 +17,7 @@ require __DIR__."/config/config.php";
 
 $main = new discordbot\main($config);
 
-$discord = new Discord([ "debugMode" => true ]);
+$discord = new Discord([ "debugMode" => $main->getConfig()['debug'] ]);
 $discord->enableCommandMap();
 $discord->getCommandMap()->addPrefix($main->getConfig()['prefix']);
 
@@ -52,14 +52,15 @@ try {
 
     });
 } catch (ReflectionException $e) {
+    die("bot cannot be start");
 }
 
 $discord->getCommandMap()->register(new class extends Command {
     public function __construct() {
         parent::__construct("say");
     }
-    public function execute(BaseTextChannel $channel, GuildMessage $message, array $args): void {
-        $channel->send($message->content);
+    public function execute(BaseTextChannel $channel, GuildMessage $message, $args): void {
+        if($message->getMember()->isHuman()) $channel->send($args);
     }
 });
 
@@ -67,4 +68,5 @@ $discord->getCommandMap()->register(new class extends Command {
 try {
     $discord->login(main::getConfig()['bot_token']);
 } catch (\phpcord\exception\ClientException $e) {
+    die("bot cannot be start");
 }
