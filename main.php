@@ -59,7 +59,7 @@ $discord->getCommandMap()->register(new class extends Command {
         parent::__construct("say");
     }
     public function execute(BaseTextChannel $channel, GuildMessage $message, array $args): void {
-        $message->reply($args[0]);
+        $channel->send($message->content);
     }
 });
 
