@@ -1,0 +1,10 @@
+{
+  "require": {
+    "himmelkreis4865/phpcord": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "phpbot\\": "src/phpBot/"
+    }
+  }
+}
