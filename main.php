@@ -1,4 +1,7 @@
 <?php
+
+use discordbot\main;
+use phpcord\channel\BaseTextChannel;
 use phpcord\client\Activity;
 use phpcord\command\Command;
 use phpcord\Discord;
@@ -6,15 +9,13 @@ use phpcord\event\client\ClientReadyEvent;
 use phpcord\event\EventListener;
 use phpcord\event\message\MessageSendEvent;
 use phpcord\guild\GuildMessage;
-use phpcord\channel\BaseTextChannel;
 use phpcord\intents\IntentsManager;
-use phpBot\main;
 
 
 require_once __DIR__ . "/vendor/autoload.php";
 require __DIR__."/config/config.php";
 
-$main = new phpBot\main($config);
+$main = new discordbot\main($config);
 
 $discord = new Discord([ "debugMode" => true ]);
 $discord->enableCommandMap();
